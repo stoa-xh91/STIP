@@ -3,7 +3,7 @@ This is an official implementation of Semantic-aware Transfer with Instance-adap
 
 This repo is built on [deep-high-resolution-net](https://github.com/leoxiaobin/deep-high-resolution-net.pytorch).
 
-![](/figures/framework.jpg)
+![](/figures/framework.png)
 ## Main Results
 ### Results on CrowdPose test set
 | Method             | Backbone   | Input size  |  AP   | Ap .5 | AP .75 | AP (Easy) | AP (Medium) | AP (Hard) |
