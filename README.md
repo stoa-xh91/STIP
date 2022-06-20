@@ -1,10 +1,9 @@
 # Semantic-aware Transfer with Instance-adaptive Parsing for Crowded Scenes Pose Estimation
-This is an official implementation of:
-
-**Xuanhan Wang, Lianli Gao, Yan Dai, Yixuan Zhou and Jingkuan Song**. ***Semantic-aware Transfer with Instance-adaptive Parsing for Crowded Scenes Pose Estimation***
+This is an official implementation of Semantic-aware Transfer with Instance-adaptive Parsing for Crowded Scenes Pose Estimation
 
 This repo is built on [deep-high-resolution-net](https://github.com/leoxiaobin/deep-high-resolution-net.pytorch).
 
+![](/figures/framework.jpg)
 ## Main Results
 ### Results on CrowdPose test set
 | Method             | Backbone   | Input size  |  AP   | Ap .5 | AP .75 | AP (Easy) | AP (Medium) | AP (Hard) |
