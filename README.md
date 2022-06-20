@@ -44,3 +44,15 @@ python tools/script_test.py \
 python tools/script_train.py \
     --cfg experiments/crowdpose/partnet/stipnet_w32_256x192_adam_lr1e-3.yaml 
 ```
+
+## Citation
+If you find this work or code is helpful in your research, please cite:
+```
+@inproceedings{pose:stip,
+	author={Xuanhan Wang and Lianli Gao and Yan Dai and Yixuan Zhou and Jingkuan Song},
+	title={Semantic-aware Transfer with Instance-adaptive Parsing for Crowded Scenes Pose Estimation},
+	pages={686--694},
+	booktitle = {ACM MM},
+	year={2021}
+}
+```
