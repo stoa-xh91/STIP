@@ -344,7 +344,7 @@ class PartsDataset(Dataset):
         self.MASK_ON = cfg.MODEL.MASK_ON
         self.SEM_ON = cfg.MODEL.SEM_ON
         self.LIMB_ON = cfg.MODEL.LIMBS_ON
-        self.PART_RCNN_ON = cfg.MODEL.PARTRCNN_ON
+        # self.PART_RCNN_ON = cfg.MODEL.PARTRCNN_ON
         self.SPATIAL_POSE_ON = cfg.MODEL.SPATIAL_POSE_ON
 
         self.joints_weight = 1
@@ -422,7 +422,7 @@ class PartsDataset(Dataset):
             data_numpy = cv2.imread(
                 image_file, cv2.IMREAD_COLOR | cv2.IMREAD_IGNORE_ORIENTATION
             )
-
+        
         if self.color_rgb:
             data_numpy = cv2.cvtColor(data_numpy, cv2.COLOR_BGR2RGB)
 
@@ -550,25 +550,25 @@ class PartsDataset(Dataset):
             'pose': target,
             'pose_weight': target_weight,
         }
-        if self.PART_RCNN_ON:
-            if self.up_scale_factor > 1:
-                self.heatmap_size *= 2
-                self.sigma += 1
-                part_target, part_target_weight = self.generate_part_target(joints, joints_vis)
-                self.heatmap_size = self.heatmap_size // 2
-                self.sigma -= 1
-            else:
-                part_target, part_target_weight = self.generate_part_target(joints, joints_vis)
-            part_target_hm = part_target[0::3, :, :]
-            part_target_x = part_target[1::3, :, :]
-            part_target_y = part_target[2::3, :, :]
-            # part_target_degree_x = part_target[3::5, :, :]
-            # part_target_degree_y = part_target[4::5, :, :]
-            part_target = np.concatenate([part_target_hm[:, None], part_target_x[:, None], part_target_y[:, None]], axis=1)
-            # part_target = np.concatenate([part_target_x[:, None], part_target_y[:, None], part_target_degree_x[:, None],part_target_degree_y[:, None]], axis=1)
-            spatial_size = part_target.shape[2:]
-            part_target = np.reshape(part_target,(self.num_joints * 3, spatial_size[0], spatial_size[1]))
-            meta['part_rcnn'] = part_target
+        # if self.PART_RCNN_ON:
+        #     if self.up_scale_factor > 1:
+        #         self.heatmap_size *= 2
+        #         self.sigma += 1
+        #         part_target, part_target_weight = self.generate_part_target(joints, joints_vis)
+        #         self.heatmap_size = self.heatmap_size // 2
+        #         self.sigma -= 1
+        #     else:
+        #         part_target, part_target_weight = self.generate_part_target(joints, joints_vis)
+        #     part_target_hm = part_target[0::3, :, :]
+        #     part_target_x = part_target[1::3, :, :]
+        #     part_target_y = part_target[2::3, :, :]
+        #     # part_target_degree_x = part_target[3::5, :, :]
+        #     # part_target_degree_y = part_target[4::5, :, :]
+        #     part_target = np.concatenate([part_target_hm[:, None], part_target_x[:, None], part_target_y[:, None]], axis=1)
+        #     # part_target = np.concatenate([part_target_x[:, None], part_target_y[:, None], part_target_degree_x[:, None],part_target_degree_y[:, None]], axis=1)
+        #     spatial_size = part_target.shape[2:]
+        #     part_target = np.reshape(part_target,(self.num_joints * 3, spatial_size[0], spatial_size[1]))
+        #     meta['part_rcnn'] = part_target
 
         limbs_target, limbs_vis = self.generate_limbs_target(joints, (target_weight > 0).astype(np.float32))
         for conn_id, conn in enumerate(self.connection_rules):
@@ -577,13 +577,13 @@ class PartsDataset(Dataset):
         if self.LIMB_ON:
             limbs_target = (limbs_target > 0.9).astype(np.float32)
             meta['limbs'] = [limbs_vis.astype(np.float32), limbs_target]
-
+        if self.SEM_ON:
+            sem_labels = (target_weight>0).astype(np.float32)
+            sem_labels = np.reshape(sem_labels, (-1,))
+            meta['semantics'] = [sem_labels]
         if self.MASK_ON:
-            mask_target = np.copy(mask)
-            for conn_id in range(len(self.connection_rules) - 4):
-                mask_target = np.maximum(limbs_target[conn_id], mask_target)
-            mask_target -= np.max(inter_target, axis=0)
-            mask_target = (mask_target > 0.7).astype(np.float32)
+            mask_target = np.max(target, axis=0)
+            mask_target = (mask_target > 0.3).astype(np.float32)
             meta['masks'] = mask_target
 
         if self.SPATIAL_POSE_ON:
@@ -612,6 +612,14 @@ class PartsDataset(Dataset):
             self.sigma -= 1
             meta['pose'] = target
             meta['pose_weight'] = target_weight
+            if self.SEM_ON:
+                sem_labels = (target_weight[:, 0] > 0).astype(np.float32)
+                sem_labels = np.reshape(sem_labels, (-1,))
+                meta['semantics'] = [sem_labels]
+            if self.MASK_ON:
+                mask_target = np.max(target, axis=0)
+                mask_target = (mask_target > 0.3).astype(np.float32)
+                meta['masks'] = mask_target
 
         return input, meta
 
