@@ -14,13 +14,21 @@ This repo is built on [deep-high-resolution-net](https://github.com/leoxiaobin/d
 | HRNet              | HRNet-w48  | 256 x 192   | 73.3  | 90.0  |  78.7  |  81.0     |    74.4     |    63.4   | 
 | HRNet + STIP       | HRNet-w48  | 256 x 192   | 74.8  | 90.8  |  80.1  |  82.0     |    75.7     |    65.0   |
 
+### Results on COCO val set
+| Method             | Backbone   | Input size  |  AP   | Ap .5 | AP .75 | AP (Easy) | AP (Medium) | AP (Hard) |
+|--------------------|------------|------------ |-------|-------|--------|-----------|-------------|-----------|
+| HRNet              | HRNet-w32  | 256 x 192   | 74.4  | 90.5  |  81.9  |  70.8     |    81.0     |    79.8   | 
+| HRNet + STIP       | HRNet-w32  | 256 x 192   | 75.8  | 90.3  |  82.4  |  72.1     |    82.4     |    80.8   |
+| HRNet              | HRNet-w48  | 256 x 192   | 75.1  | 90.6  |  82.2  |  71.5     |    81.8     |    80.4   | 
+| HRNet + STIP       | HRNet-w48  | 256 x 192   | 76.0  | 90.4  |  82.2  |  72.2     |    82.9     |    81.1   |
+
 ## Installation
 
 The environment can be referred to [README.md](https://github.com/leoxiaobin/deep-high-resolution-net.pytorch/blob/master/README.md).
 
 The details about dataset can be referred to [README.md](https://github.com/HRNet/HigherHRNet-Human-Pose-Estimation/blob/master/README.md).
 
-Downlaod pretrained weights from [BaidunYun](https://pan.baidu.com/s/186ktb9KvF0Vz425mZuIPrA)(Password: wp30) to [./models](!./models).
+Downlaod pretrained weights from [BaidunYun](https://pan.baidu.com/s/1BavoWmV6aOuGiJzbSsSaMw?pwd=cr1x)(Password: cr1x) to [./models](!./models).
 
 #### Testing on CrowdPose dataset using pretrained weights
 
