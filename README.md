@@ -7,7 +7,7 @@ This repo is built on [deep-high-resolution-net](https://github.com/leoxiaobin/d
 ![](/figures/vis_model.png)
 ## Main Results
 ### Results on CrowdPose test set
-| Method             | Backbone   | Input size  |  AP   | Ap .5 | AP .75 | AP (Easy) | AP (Medium) | AP (Hard) |
+| Method             | Backbone   | Input size  |  AP   | Ap@50 | AP@75 | AP (Easy) | AP (Medium) | AP (Hard) |
 |:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|
 | HRNet              | HRNet-w32  | 256 x 192   | 71.7  | 89.8  |  76.9  |  79.6     |    72.7     |    61.5   | 
 | HRNet + STIP       | HRNet-w32  | 256 x 192   | 74.1  | 90.0  |  79.9  |  81.6     |    75.1     |    64.3   |
@@ -15,7 +15,7 @@ This repo is built on [deep-high-resolution-net](https://github.com/leoxiaobin/d
 | HRNet + STIP       | HRNet-w48  | 256 x 192   | 74.8  | 90.8  |  80.1  |  82.0     |    75.7     |    65.0   |
 
 ### Results on COCO val set
-| Method             | Backbone   | Input size  |  AP   | Ap .5 | AP .75 | AP (Easy) | AP (Medium) | AP (Hard) |
+| Method             | Backbone   | Input size  |  AP   | Ap@50 | AP@75 | AP (Small) | AP (Medium) | AP (Large) |
 |:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|
 | HRNet              | HRNet-w32  | 256 x 192   | 74.4  | 90.5  |  81.9  |  70.8     |    81.0     |    79.8   | 
 | HRNet + STIP       | HRNet-w32  | 256 x 192   | 75.8  | 90.3  |  82.4  |  72.1     |    82.4     |    80.8   |
